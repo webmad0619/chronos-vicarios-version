@@ -1,4 +1,3 @@
-// Constructor
 class Chronometer {
   constructor(){
     this.currentTime = 0;
@@ -7,10 +6,10 @@ class Chronometer {
   }
 
 
-startClick = () => {
+start = () => {
   this.intervalId = setInterval(()=>{
-    this.setTime()
-    printTime()
+    // this.setTime()
+    // printTime()
     this.milis ++;
     if(this.milis%100==0){
       this.currentTime++;
@@ -25,12 +24,12 @@ startClick = () => {
 
 };
 
-setMinutes = () => {
+getMinutes = () => {
   return Math.floor(this.currentTime/60);
   
 };
 
-setSeconds = () => {
+getSeconds = () => {
   return this.currentTime%60
 };
 
@@ -43,14 +42,14 @@ twoDigitsNumber = (num) => {
   }
 };
 
-setTime = () => {
-  var minutes = this.twoDigitsNumber(this.setMinutes())
-  var seconds = this.twoDigitsNumber(this.setSeconds())
-  var mili = this.twoDigitsNumber(this.setMilliseconds())
+getTime = () => {
+  var minutes = this.twoDigitsNumber(this.getMinutes())
+  var seconds = this.twoDigitsNumber(this.getSeconds())
+  var mili = this.twoDigitsNumber(this.getMilliseconds())
   return [minutes, seconds, mili]
 };
 
-setMilliseconds = () => {
+getMilliseconds = () => {
   return this.milis
 };
 

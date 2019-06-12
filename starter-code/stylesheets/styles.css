@@ -10,7 +10,7 @@ body {
   padding: 40px 0;
 }
 
-#clock {
+.clock {
   border: 2px solid #000;
   border-radius: 20px;
   box-sizing: border-box;
@@ -20,13 +20,13 @@ body {
   width: 245px;
 }
 
-#sphere {
+.sphere {
   border: 2px solid #000;
   border-radius: 20px;
   box-sizing: border-box;
   font-family: "Digi";
   font-size: 80px;
-  height: 210px;
+  height: 60px;
   margin: 0 auto;
   padding: 35px 0;
   position: relative;
@@ -34,19 +34,19 @@ body {
   width: 220px;
 }
 
-#splits-container {
+.splits-container {
   font-size: 20px;
   font-weight: 100;
   position: absolute;
   left: 50px;
 }
 
-#splits-container li {
+.splits-container li {
   padding-bottom: 5px;
   text-align: right;
 }
 
-#milliseconds {
+.milliseconds {
   font-size: 36px;
   margin-top: -15px;
   position: absolute;
