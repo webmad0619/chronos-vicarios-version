@@ -1,18 +1,36 @@
 class ChronoGUI {
-  constructor() {
+  constructor(chronoInstance) {
+    this.chronoInstance = chronoInstance
+
     var container = document.createElement("section");
     container.className = "clock";
     container.innerHTML = `
     <div class="sphere">
-      <span class="minDec" class="number">0</span><span class="minUni" class="number">0</span><span>:</span><span class="secDec" class="number">0</span><span class="secUni" class="number">0</span>
+      <span class="minutes" class="number">00</span>:</span><span class="seconds" class="number">00</span>
 
       <div class="milliseconds">
-        <span class="milDec">0</span><span class="milUni">0</span>
+        <span class="milis">00</span>
       </div>
 
-      <button class="btnLeft" class="btn start">START</button> <button class="btnRight" class="btn reset">RESET</button>
+      <div class="buttons">
+        <button class="start">START</button> 
+        <button class="stop">STOP</button> 
+        <button class="reset">RESET</button>
+      </div>
     </div>
   `;
     document.body.appendChild(container);
+
+    container.querySelector(".start").onclick = () => {
+      this.chronoInstance.start()
+    }
+
+    container.querySelector(".stop").onclick = () => {
+      this.chronoInstance.stop()
+    }
+
+    container.querySelector(".reset").onclick = () => {
+      this.chronoInstance.reset()
+    }
   }
 }

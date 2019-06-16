@@ -1,66 +1,51 @@
 class Chronometer {
-  constructor(){
-    this.currentTime = 0;
-    this.intervalId = 0;
+  constructor() {
+    // event emitter as per https://stackoverflow.com/questions/15308371/custom-events-model-without-using-dom-events-in-javascript
+    var target = document.createTextNode(null);
+
+    // Pass EventTarget interface calls to DOM EventTarget object
+    this.addEventListener = target.addEventListener.bind(target);
+    this.dispatchEvent = target.dispatchEvent.bind(target);
+
+    this.seconds = 0;
     this.milis = 0
+    this.minutes = 0
+    this.intervalId = 0;
   }
 
+  start = () => {
+    this.intervalId = setInterval(() => {
+      this.milis++;
+      if (this.milis % 100 == 0) {
+        this.seconds++;
+      }
+      if (this.seconds === 1000) {
+        this.seconds = 0;
+      }
+      if (this.milis === 100) {
+        this.milis = 0;
+      }
+      if (this.seconds > 59) {
+        this.seconds = 0
+        this.minutes++
+      }
 
-start = () => {
-  this.intervalId = setInterval(()=>{
-    // this.setTime()
-    // printTime()
-    this.milis ++;
-    if(this.milis%100==0){
-      this.currentTime++;
-    }
-    if(this.currentTime === 1000){
-      this.currentTime = 0;
-    }
-    if(this.milis === 100){
-      this.milis = 0;
-    }
-  },10)
+      let milisWithMask = this.milis < 10 ? `0${this.milis}` : this.milis
+      let secondsWithMask = this.seconds < 10 ? `0${this.seconds}` : this.seconds
+      let minutesWithMask = this.minutes < 10 ? `0${this.minutes}` : this.minutes
 
-};
+      this.dispatchEvent(new CustomEvent('timeChanged', { detail: { milis: milisWithMask, seconds: secondsWithMask, minutes: minutesWithMask } }))
+    }, 10)
+  };
 
-getMinutes = () => {
-  return Math.floor(this.currentTime/60);
-  
-};
+  stop = () => {
+    clearInterval(this.intervalId)
+  };
 
-getSeconds = () => {
-  return this.currentTime%60
-};
-
-twoDigitsNumber = (num) => {
-  num = num.toString()
-  if(num.length<2){
-    return `0${num}`
-  }else{
-    return num
-  }
-};
-
-getTime = () => {
-  var minutes = this.twoDigitsNumber(this.getMinutes())
-  var seconds = this.twoDigitsNumber(this.getSeconds())
-  var mili = this.twoDigitsNumber(this.getMilliseconds())
-  return [minutes, seconds, mili]
-};
-
-getMilliseconds = () => {
-  return this.milis
-};
-
-stopClick = () => {
-  clearInterval(this.intervalId)
-};
-
-resetClick = () => {
-  this.currentTime = 0;
-  this.milis = 0;
-};
+  reset = () => {
+    this.seconds = 0;
+    this.milis = 0;
+  };
 }
 
 
